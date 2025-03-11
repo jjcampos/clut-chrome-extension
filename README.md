@@ -8,5 +8,6 @@ https://chrome.google.com/webstore/detail/clut-cycle-last-used-tabs/cobieddmkhhn
 
 In this fork:
 
+- Updated to Manifest V3
 - Removed the tracking code.
 - Updated the CSP (content security policy) to allow only code from this particular extension.

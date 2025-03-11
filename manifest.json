@@ -1,22 +1,26 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "name": "CLUT: Cycle Last Used Tabs - No Tracking",
   "description": "Cycle through last used Chrome tabs using keyboard shortcut.",
-  "version": "1.6",
+  "version": "2.0",
   "short_name": "CLUT",
 
   "permissions": [
+    "storage",
     "tabs"
   ],
-  "content_security_policy" : "default-src 'self'",
+  "host_permissions": [],
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'"
+  },
   "icons": { 
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png" 
   },
-  "background":{
-    "scripts" : ["background.js"]
+  "background": {
+    "service_worker": "background.js"
   },
   "commands": {
     "alt_switch_fast": {
@@ -31,7 +35,7 @@
         "default": "Alt+S",
         "mac": "Alt+S"
       },
-      "description": "Normal switch backward (Suggested: Alt+S) "
+      "description": "Normal switch backward (Suggested: Alt+S)"
     },
     "alt_switch_slow_forward": {
       "suggested_key": {
@@ -41,7 +45,7 @@
       "description": "Normal switch forward (Suggested: Alt+Shift+S)"
     }
   },
-  "browser_action": {
+  "action": {
     "default_icon": "icon16.png"
   }
 }

@@ -37,13 +37,18 @@ function onUpdate() {
 }
 
 function getVersion() {
-    var details = chrome.app.getDetails();
+    var details = chrome.runtime.getManifest();
     return details.version;
+}
+
+async function getPreviousVersion() {
+    return await chrome.storage.local.get('version').then(result => result.version); 
 }
 
 // Check if the version has changed.
 var currVersion = getVersion();
-var prevVersion = localStorage['version']
+var prevVersion = getPreviousVersion();
+
 CLUTlog("prev version: "+prevVersion);
 CLUTlog("curr version: "+currVersion);
 if (currVersion != prevVersion) {
@@ -53,7 +58,7 @@ if (currVersion != prevVersion) {
     } else {
         onUpdate();
     }
-    localStorage['version'] = currVersion;
+    chrome.storage.local.set({ version: currVersion });
 }
 
 var processCommand = function(command) {
@@ -118,7 +123,7 @@ var processCommand = function(command) {
 
 chrome.commands.onCommand.addListener(processCommand);
 
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.action.onClicked.addListener(function(tab) {
     CLUTlog('Click recd');
     processCommand('alt_switch_fast');
 });
@@ -318,6 +323,6 @@ var slowSwitchActiveUsage = function() {
 }
 
 initialize();
-document.addEventListener('DOMContentLoaded', function () {
+self.addEventListener('DOMContentLoaded', function () {
     domLoaded = true;
 });
